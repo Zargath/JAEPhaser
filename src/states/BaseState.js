@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import BaseClassConstructedError from '../Errors/BaseClassConstructedError';
 
-export default class BaseState extends Phaser.State {
+export default class BaseState extends Phaser.Scene {
   constructor() {
     super();
     if (this.constructor === BaseState) {

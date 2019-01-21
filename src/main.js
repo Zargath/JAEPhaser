@@ -15,9 +15,10 @@ export default class Game extends Phaser.Game {
     // this.state.add("Menu", Menu);
     // this.state.add("Preload", Preload);
     // this.state.add('sandbox', sandbox);
-    this.state.add('sandbox', Sandbox);
+    console.log('create sandbox');
+    this.scene.add('sandbox', Sandbox);
 
-    this.state.start('sandbox');
+    this.scene.start('sandbox');
   }
 }
 

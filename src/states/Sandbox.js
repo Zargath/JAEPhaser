@@ -9,8 +9,9 @@ export default class Sandbox extends BaseState {
   }
 
   create() {
-    const square = new Square(10, 10, 200, this.game);
+    const square = new Square(10, 10, 200, this);
     this.gameKeyboard = new GameKeyboard(this.game);
+    console.debug('create scene');
     square.draw();
   }
 
