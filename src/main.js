@@ -1,30 +1,24 @@
-import 'phaser';
-import BootScene from './scenes/BootScene';
-import GameScene from './scenes/GameScene';
-import TitleScene from './scenes/TitleScene';
+import Phaser from 'phaser';
+import Sandbox from './states/Sandbox';
 
-const config = {
-    // For more settings see <https://github.com/photonstorm/phaser/blob/master/src/boot/Config.js>
-    type: Phaser.WEBGL,
-    pixelArt: true,
-    roundPixels: true,
-    parent: 'content',
-    width: 400,
-    height: 240,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: {
-                y: 800
-            },
-            debug: false
-        }
-    },
-    scene: [
-        BootScene,
-        TitleScene,
-        GameScene
-    ]
-};
+export default class Game extends Phaser.Game {
+  constructor() {
+    super(800, 600, Phaser.AUTO, '', null, false, false, {
+      arcade: true,
+      matter: false,
+      p2: false,
+      ninja: false
+    });
 
-const game = new Phaser.Game(config); // eslint-disable-line no-unused-vars
+    // Add the States your game has.
+    // this.state.add("Boot", Boot);
+    // this.state.add("Menu", Menu);
+    // this.state.add("Preload", Preload);
+    // this.state.add('sandbox', sandbox);
+    this.state.add('sandbox', Sandbox);
+
+    this.state.start('sandbox');
+  }
+}
+
+window.game = new Game();
