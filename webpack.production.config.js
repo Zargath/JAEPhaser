@@ -40,8 +40,8 @@ module.exports = {
     }),*/
     //new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' /* chunkName= */, filename: 'js/vendor.bundle.js' /* filename= */ }),
     new HtmlWebpackPlugin({
-      filename: 'index.html', // path.resolve(__dirname, 'build', 'index.html'),
-      template: './src/index.html',
+      filename: '../../index.html', // path.resolve(__dirname, 'build', 'index.html'),
+      template: './index.html',
       chunks: ['vendor', 'app'],
       chunksSortMode: 'manual',
       minify: {
@@ -59,7 +59,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'assets', to: 'assets' }
     ]),
-    
+
   ],
   module: {
     rules: [
