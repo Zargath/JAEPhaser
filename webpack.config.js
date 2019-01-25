@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -19,13 +20,12 @@ module.exports = {
     app: [
       path.resolve(__dirname, 'src/main.js')
     ],
-    vendor: ['phaser']
+    // vendor: ['phaser']
   },
   devtool: 'cheap-source-map',
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'dev'),
-    publicPath: './dev/',
     library: '[name]',
     libraryTarget: 'umd',
     filename: '[name].js'
@@ -33,11 +33,12 @@ module.exports = {
   watch: true,
   plugins: [
     definePlugin,
+    new CleanWebpackPlugin(['./dev/']),
     // new webpack.optimize.CommonsChunkPlugin({ name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */ }),
     new HtmlWebpackPlugin({
-      filename: '.../index.html',
-      template: './index.html',
-      chunks: ['vendor', 'app'],
+      filename: 'index.html',
+      template: 'index.html',
+      chunks: ['app'],
       chunksSortMode: 'manual',
       minify: {
         removeAttributeQuotes: false,
@@ -55,7 +56,7 @@ module.exports = {
       host: process.env.IP || 'localhost',
       port: process.env.PORT || 3000,
       server: {
-        baseDir: ['./', './dev']
+        baseDir: ['./dev/']
       }
     })
   ],

@@ -16,38 +16,33 @@ const definePlugin = new webpack.DefinePlugin({
 
 module.exports = {
   entry: {
+    // vendor: ['phaser'],
     app: [
       path.resolve(__dirname, 'src/main.js')
-    ],
-    // vendor: ['pixi']
-
+    ]
   },
   output: {
+    pathinfo: true,
     path: path.resolve(__dirname, 'build'),
     publicPath: './',
-    filename: 'js/bundle.js'
+    library: '[name]',
+    libraryTarget: 'umd',
+    filename: '[name].js'
   },
   plugins: [
     definePlugin,
     new CleanWebpackPlugin(['build']),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    /* new webpack.optimize.UglifyJsPlugin({
-      drop_console: true,
-      minimize: true,
-      output: {
-        comments: false
-      }
-    }), */
     // new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' /* chunkName= */, filename: 'js/vendor.bundle.js' /* filename= */ }),
     new HtmlWebpackPlugin({
-      filename: '../index.html', // path.resolve(__dirname, 'build', 'index.html'),
-      template: './index.html',
-      chunks: ['vendor', 'app'],
+      filename: 'index.html',
+      template: 'index.html',
+      chunks: ['app'],
       chunksSortMode: 'manual',
       minify: {
         removeAttributeQuotes: true,
         collapseWhitespace: true,
-        html5: true,
+        html5: false,
         minifyCSS: true,
         minifyJS: true,
         minifyURLs: true,
@@ -56,9 +51,9 @@ module.exports = {
       },
       hash: true
     }),
-    new CopyWebpackPlugin([
+    /* new CopyWebpackPlugin([
       { from: 'assets', to: 'assets' }
-    ]),
+    ]),*/
 
   ],
   module: {
