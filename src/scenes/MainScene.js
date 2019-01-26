@@ -3,6 +3,7 @@ import BaseScene from './BaseScene';
 import Player from '../ui/Player';
 import { demoMap } from '../maps';
 import MovableObject from '../ui/movableObject';
+import Mediator from '../mediator';
 
 export default class MainScene extends BaseScene {
   constructor() {
@@ -30,12 +31,18 @@ export default class MainScene extends BaseScene {
 
     this.ball = new MovableObject(this, 160 + 16, 64 + 16, 'ball', this.player);
     this.physics.add.collider(this.ball, worldLayer);
-
+    
     this.physics.world.bounds.width = worldLayer.width;
     this.physics.world.bounds.height = worldLayer.height;
 
+    Mediator.instance.eventEmitter.on('onPlayerDied', (player) => this.onPlayerDied(player, this));
+
     this.player.addToScene();
     this.ball.addToScene();
+  }
+
+  onPlayerDied(player, scene){
+    scene.scene.restart();
   }
 
   update() {

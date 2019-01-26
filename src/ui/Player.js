@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Mediator from '../mediator';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
@@ -59,6 +60,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   die() {
     this.isDead = true;
+    Mediator.instance.eventEmitter.emit('onPlayerDied', this);
   }
 
   addToScene() {

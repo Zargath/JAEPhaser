@@ -11,7 +11,10 @@ export default class MovableObject extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene;
     this.mover = mover;
 
-    this.scene.physics.add.collider(this.mover, this, this.move);
+    this.startLocX = x;
+    this.startLocY = y;
+
+    this.scene.physics.add.collider(this.mover, this);
   }
 
   addToScene(){
@@ -25,7 +28,7 @@ export default class MovableObject extends Phaser.Physics.Arcade.Sprite {
     this.setCollideWorldBounds(true);
   }
 
-  move(event){
-    console.log(event);
+  reset(){
+    this.reset(this.startLocX, this.startLocY);
   }
 }
