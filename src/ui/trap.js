@@ -1,10 +1,15 @@
 import Phaser from 'phaser';
 
 export default class Trap extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, texture, prey){
-    super(scene, x, y, texture);
+  constructor(config) {
+    super(
+      config.scene,
+      config.x,
+      config.y,
+      config.texture
+    );
 
-    this.prey = prey;
+    this.prey = config.player;
     this.scene.physics.add.overlap(this.prey, this, this.killPrey);
   }
 
@@ -13,7 +18,7 @@ export default class Trap extends Phaser.Physics.Arcade.Sprite {
     this.scene.add.existing(this);
   }
 
-  killPrey(prey){
+  killPrey(prey) {
     prey.die();
   }
 }

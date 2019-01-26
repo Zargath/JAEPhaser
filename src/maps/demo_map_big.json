@@ -73,6 +73,39 @@
                  "width":32,
                  "x":1025.5,
                  "y":388.5
+                }, 
+                {
+                 "height":32,
+                 "id":12,
+                 "name":"KillSwitch",
+                 "rotation":0,
+                 "type":"KillSwitch",
+                 "visible":true,
+                 "width":32,
+                 "x":200,
+                 "y":79
+                }, 
+                {
+                 "height":32,
+                 "id":15,
+                 "name":"KillSwitch",
+                 "rotation":0,
+                 "type":"KillSwitch",
+                 "visible":true,
+                 "width":32,
+                 "x":196,
+                 "y":237
+                }, 
+                {
+                 "height":32,
+                 "id":16,
+                 "name":"KillSwitch",
+                 "rotation":0,
+                 "type":"KillSwitch",
+                 "visible":true,
+                 "width":32,
+                 "x":404,
+                 "y":199
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -81,7 +114,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":12,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",

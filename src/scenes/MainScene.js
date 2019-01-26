@@ -13,20 +13,16 @@ export default class MainScene extends BaseScene {
   }
 
   preload() {
-    var progress = this.add.graphics();
+    const progress = this.add.graphics();
 
-    this.load.on('progress', function (value) {
-
-        progress.clear();
-        progress.fillStyle(0xffffff, 1);
-        progress.fillRect(0, 270, 800 * value, 60);
-
+    this.load.on('progress', (value) => {
+      progress.clear();
+      progress.fillStyle(0xffffff, 1);
+      progress.fillRect(0, 270, 800 * value, 60);
     });
 
-    this.load.on('complete', function () {
-
-        progress.destroy();
-
+    this.load.on('complete', () => {
+      progress.destroy();
     });
 
     this.load.tilemapTiledJSON('map', demoMapBig);
@@ -34,6 +30,7 @@ export default class MainScene extends BaseScene {
     this.load.image('basic-tiles', 'assets/basic.png');
     this.load.image('player', 'assets/player.png');
     this.load.image('ball', 'assets/ball.png');
+    this.load.image('poison', 'assets/poison-512.png');
   }
 
   create() {
@@ -45,8 +42,6 @@ export default class MainScene extends BaseScene {
 
     this.player = new Player(this, 96 + 16, 64 + 16);
     this.physics.add.collider(this.player, worldLayer);
-    //this.cameras.main.setZoom(1.5);
-    //this.cameras.main.setBounds(0, 0, 800, 600);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
     this.map = map;
 
@@ -56,11 +51,15 @@ export default class MainScene extends BaseScene {
       player: this.player,
     });
 
+    this.trapObjects = TiledMapHelper.createFromObjects(this, 'Objects', 'KillSwitch', Trap, {
+      scene: this,
+      texture: 'poison',
+      player: this.player,
+    });
+
     for (let i = 0; i < this.objects.length; i++) {
       this.physics.add.collider(this.objects[i], worldLayer);
     }
-
-    this.trap = new Trap(this, 192 + 16, 64 + 16, 'ball', this.player);
 
     this.physics.world.bounds.width = worldLayer.width;
     this.physics.world.bounds.height = worldLayer.height;
@@ -71,7 +70,9 @@ export default class MainScene extends BaseScene {
     for (let i = 0; i < this.objects.length; i++) {
       this.objects[i].addToScene();
     }
-    this.trap.addToScene();
+    for (let i = 0; i < this.trapObjects.length; i++) {
+      this.trapObjects[i].addToScene();
+    }
   }
 
   onPlayerDied(player, scene) {
