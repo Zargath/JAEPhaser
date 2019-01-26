@@ -18,16 +18,18 @@ export default class MainScene extends BaseScene {
   create() {
     this.cameras.main.setViewport(120, 100, 600, 400);
 
-    const map = this.make.tilemap({ key: 'map', tileWidth: 16, tileHeight: 16 });
+    const map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
     const tileset = map.addTilesetImage('test', 'snow-tiles');
     const worldLayer = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
     worldLayer.setCollisionByProperty({ collides: true });
 
     const text = new JAEText(20, 20, 'hello world', { fontSize: '24px', fontFamily: 'Arial', color: '#fff' }, this);
 
-    this.player = new Player(this, 100, 100);
+    this.player = new Player(this, 96 + 16, 64 + 16);
     this.physics.add.collider(this.player, worldLayer);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
+
+    this.player.addToScene();
   }
 
   update() {

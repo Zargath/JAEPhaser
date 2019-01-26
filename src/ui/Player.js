@@ -14,13 +14,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     // player defaults
     this.canJump = true;
     this.canDoubleJump = false;
-
-    scene.add.existing(this);
-    scene.physics.add.existing(this);
-
-    this.setGravityY(this.gravity);
-    this.setBounce(0.2);
-    this.setCollideWorldBounds(true);
+    this.isDead = false;
+    this.startLocX = x;
+    this.startLocY = y;
 
     this.cursors = scene.input.keyboard.createCursorKeys();
   }
@@ -41,9 +37,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   updateJump() {
-    if (this.body.blocked.down) {
-      this.canJump = true;
-    }
+    this.canJump = this.body.blocked.down;
 
     if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
       if (this.canJump) {
@@ -54,6 +48,38 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.canDoubleJump = false;
         this.setVelocityY(-this.doubleJumpSpeed);
       }
+    }
+  }
+
+  respawn(){
+    this.isDead = false;
+    this.x = this.startLocX;
+    this.y = this.startLocY;
+  }
+
+  die(){
+    this.isDead = true;
+  }
+
+  addToScene(){
+    this.scene.physics.add.existing(this);
+
+    this.setGravityY(this.gravity);
+    this.setBounce(0.2);
+    this.setCollideWorldBounds(true);
+
+    this.body.onWorldBounds = true;
+    this.body.world.on('worldbounds', this.onWorldBounds);
+
+    this.scene.add.existing(this);
+  }
+
+  onWorldBounds(body) {
+    // this is world here
+    let player = body.gameObject;
+    if (body.blocked.down && !player.isDead) {
+      player.die();
+      player.respawn();
     }
   }
 }
