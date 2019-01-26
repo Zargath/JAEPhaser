@@ -5,18 +5,16 @@ import FogOfWarScene from './scenes/FogOfWarScene';
 
 export default class Game extends Phaser.Game {
   constructor() {
-    super(
-      {
-        scene: [BackgroundScene, FogOfWarScene, MainScene],
-        physics: {
-          default: 'arcade',
-          arcade: {
-            gravity: { y: 300 },
-            debug: false
-          }
+    super({
+      scene: [BackgroundScene, FogOfWarScene, MainScene],
+      physics: {
+        default: 'arcade',
+        arcade: {
+          gravity: { y: 300 },
+          debug: false
         }
       }
-    );
+    });
   }
 }
 

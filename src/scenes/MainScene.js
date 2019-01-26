@@ -14,12 +14,11 @@ export default class MainScene extends BaseScene {
   }
 
   create() {
-    this.cameras.main.setViewport(120, 100, 400, 400);
+    this.cameras.main.setViewport(120, 100, 600, 400);
 
     const map = this.make.tilemap({ key: 'map', tileWidth: 16, tileHeight: 16 });
     const tileset = map.addTilesetImage('sample_tileset', 'mario-tiles');
-    const belowLayer = map.createStaticLayer('first', tileset, 0, 0);
-    // const layer = map.createStaticLayer(0, tiles, 0, 0);
+    map.createStaticLayer('first', tileset, 0, 0);
 
     this.player = new Player(this, 100, 100);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
