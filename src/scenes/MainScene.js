@@ -1,5 +1,6 @@
 import BaseScene from './BaseScene';
 import Player from '../ui/Player';
+import { testMap } from '../maps';
 
 export default class MainScene extends BaseScene {
   constructor() {
@@ -7,7 +8,7 @@ export default class MainScene extends BaseScene {
   }
 
   preload() {
-    this.load.tilemapTiledJSON('map', 'assets/test_map.json');
+    this.load.tilemapTiledJSON('map', testMap);
     this.load.image('mario-tiles', 'assets/sample_tileset.png');
     this.load.image('snow-tiles', 'assets/snow_tileset.jpg');
     this.load.image('player', 'assets/player.png');
