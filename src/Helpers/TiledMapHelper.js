@@ -1,4 +1,13 @@
 export default class TiledMapHelper {
+  /**
+    * @desc creates objects from a given TiledMap provided to the scene.
+    * @param Phaser.Scene $scene - The scene to create the objects to
+    * @param string $name - The layer name from Tiled
+    * @param string $id - The gid from Tiled
+    * @param Object $customClass - The custom class to create the objects for.
+    * @param Object $spriteConfiguration - The specific configurations for the customClass.
+    * @return Phaser.Sprite[] - An array with the created sprites.
+  */
   static createFromObjects(scene, name, id, customClass, spriteConfiguration) {
     let spriteConfig = spriteConfiguration;
     if (spriteConfig === undefined) spriteConfig = {};
