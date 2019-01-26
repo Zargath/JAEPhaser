@@ -12,6 +12,7 @@ export default class JAEText extends Phaser.GameObjects.Text {
     this.textStyle = textStyle;
     this.text = text;
     this.scene = scene;
+    this.textObject = this.scene.add.text(this.x, this.y, this.text, this.textStyle);
   }
 
   /**
@@ -19,7 +20,7 @@ export default class JAEText extends Phaser.GameObjects.Text {
   * with the supplied graphics or the default graphics
   */
   draw() {
-    console.log(`drawing text ${this.text}`);
-    this.scene.add.text(this.x, this.y, this.text, this.textStyle);
+    this.textObject.destroy();
+    this.textObject = this.scene.add.text(this.x, this.y, this.text, this.textStyle);
   }
 }

@@ -21,10 +21,10 @@ export default class Rectangle {
   * Draws the rectnalge on screen
   * with the supplied graphics or the default graphics
   */
-  draw(graphics) {
+  draw() {
     this.clear();
-    graphics.lineStyle(2, 0xFFFFFF, 1);
-    graphics.strokeRectShape(this.rectangle);
+    this.graphics.lineStyle(2, 0xFFFFFF, 1);
+    this.graphics.strokeRectShape(this.rectangle);
   }
 
   // Clears the image on screen
