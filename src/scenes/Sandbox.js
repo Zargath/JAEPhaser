@@ -1,13 +1,10 @@
-import Phaser from 'phaser';
 import BaseState from './BaseState';
-import Square from '../ui/primitives/Square';
-import JAEText from '../ui/JAEText';
 import Player from '../ui/Player';
 // import GameKeyboard from '../Inputs/GameKeyboard';
 
 export default class Sandbox extends BaseState {
   constructor() {
-    super();
+    super({ key: 'Sandbox', active: true });
   }
 
   create() {

@@ -1,12 +1,10 @@
-import Phaser from 'phaser';
 import BaseState from './BaseState';
 import Map from '../utils/Map';
 // import GameKeyboard from '../Inputs/GameKeyboard';
 
 export default class MainScene extends BaseState {
   constructor() {
-    super();
-    this.setStateName('MainScene');
+    super({ key: 'MainScene', active: true });
   }
 
   preload() {
