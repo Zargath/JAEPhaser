@@ -50,10 +50,8 @@ module.exports = {
         removeEmptyAttributes: true
       },
       hash: true
-    }),
-    /* new CopyWebpackPlugin([
-      { from: 'assets', to: 'assets' }
-    ]),*/
+    }),    
+    new CopyWebpackPlugin([{from: 'assets', to: 'assets'}]),
 
   ],
   module: {

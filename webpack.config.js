@@ -52,6 +52,7 @@ module.exports = {
       },
       hash: false
     }),
+    new CopyWebpackPlugin([{from: 'assets', to: 'assets'}]),
     new BrowserSyncPlugin({
       host: process.env.IP || 'localhost',
       port: process.env.PORT || 3000,
