@@ -2,6 +2,7 @@ import BaseScene from './BaseScene';
 import Player from '../ui/Player';
 import JAEText from '../ui/JAEText';
 import { testMap } from '../maps';
+import MovableObject from '../ui/movableObject';
 
 export default class MainScene extends BaseScene {
   constructor() {
@@ -13,6 +14,7 @@ export default class MainScene extends BaseScene {
     this.load.image('mario-tiles', 'assets/sample_tileset.png');
     this.load.image('snow-tiles', 'assets/snow_tileset.jpg');
     this.load.image('player', 'assets/player.png');
+    this.load.image('ball', 'assets/ball.png');
   }
 
   create() {
@@ -29,7 +31,11 @@ export default class MainScene extends BaseScene {
     this.physics.add.collider(this.player, worldLayer);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
 
+    this.ball = new MovableObject(this, 160 + 16, 64 + 16, 'ball', this.player);
+    this.physics.add.collider(this.ball, worldLayer);
+
     this.player.addToScene();
+    this.ball.addToScene();
   }
 
   update() {
