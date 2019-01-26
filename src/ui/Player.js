@@ -38,7 +38,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   updateJump() {
-    this.canJump = this.body.blocked.down;
+    this.canJump = this.body.blocked.down || this.body.touching.down;
 
     if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
       if (this.canJump) {
