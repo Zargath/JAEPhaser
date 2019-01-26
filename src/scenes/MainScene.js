@@ -4,6 +4,7 @@ import Player from '../ui/Player';
 import { demoMap } from '../maps';
 import MovableObject from '../ui/movableObject';
 import Mediator from '../mediator';
+import Trap from '../ui/trap';
 
 export default class MainScene extends BaseScene {
   constructor() {
@@ -31,7 +32,9 @@ export default class MainScene extends BaseScene {
 
     this.ball = new MovableObject(this, 160 + 16, 64 + 16, 'ball', this.player);
     this.physics.add.collider(this.ball, worldLayer);
-    
+
+    this.trap = new Trap(this, 192 + 16, 64 + 16, 'ball', this.player);
+
     this.physics.world.bounds.width = worldLayer.width;
     this.physics.world.bounds.height = worldLayer.height;
 
@@ -39,10 +42,15 @@ export default class MainScene extends BaseScene {
 
     this.player.addToScene();
     this.ball.addToScene();
+    this.trap.addToScene();
   }
 
   onPlayerDied(player, scene){
-    scene.scene.restart();
+    scene.cameras.main.once('camerafadeoutcomplete', (camera) => {
+      this.scene.restart();
+    }, scene);
+
+    scene.cameras.main.fadeOut(500);
   }
 
   update() {

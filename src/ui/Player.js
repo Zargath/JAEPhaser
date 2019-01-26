@@ -60,6 +60,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   die() {
     this.isDead = true;
+    this.disableBody(true, true);
     Mediator.instance.eventEmitter.emit('onPlayerDied', this);
   }
 
@@ -81,7 +82,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     const player = body.gameObject;
     if (body.blocked.down && !player.isDead) {
       player.die();
-      player.respawn();
     }
   }
 }
