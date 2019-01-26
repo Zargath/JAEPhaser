@@ -1,7 +1,8 @@
+import Phaser from 'phaser';
 import BaseState from './BaseState';
 import Square from '../ui/primitives/Square';
-import Text from '../ui/Text';
-import GameKeyboard from '../Inputs/GameKeyboard';
+import JAEText from '../ui/JAEText';
+// import GameKeyboard from '../Inputs/GameKeyboard';
 
 export default class Sandbox extends BaseState {
   constructor() {
@@ -10,15 +11,23 @@ export default class Sandbox extends BaseState {
   }
 
   create() {
-    const square = new Square(10, 10, 200, this);
-    const text = new Text(120, 110, 'My Text', { font: '96px Courier', fill: '#fff' }, this);
-    this.gameKeyboard = new GameKeyboard(this.game);
-    console.debug('create scene');
-    square.draw();
-    text.draw();
+    this.square = new Square(10, 10, 100, this);
+    this.text = new JAEText(50, 50, 'My Text', { font: '96px Courier', fill: '#fff' }, this);
+    this.rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+    this.draw();
   }
+
+  draw() {
+    this.square.draw();
+    this.text.draw();
+  }
+
 
   update() {
     super.update();
+    if (this.rightKey.isDown) {
+      this.square.update();
+    }
+    this.square.draw();
   }
 }

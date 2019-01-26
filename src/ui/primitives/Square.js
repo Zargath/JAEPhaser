@@ -10,7 +10,7 @@ export default class Square extends Rectangle {
 
   // Draws the square to the supplier graphics
   draw(graphics = this.graphics) {
-    console.log('Drawing square');
+    this.clear();
     super.draw(graphics);
   }
 

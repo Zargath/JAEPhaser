@@ -9,7 +9,12 @@ export default class Rectangle {
     this.width = width;
     this.height = height;
     this.graphics = graphics;
+    this.offsetX = 1;
     this.rectangle = new Phaser.Geom.Rectangle(x, y, width, height);
+  }
+
+  update() {
+    this.rectangle.setPosition(this.offsetX + this.rectangle.x, this.rectangle.y);
   }
 
   /**
@@ -17,7 +22,7 @@ export default class Rectangle {
   * with the supplied graphics or the default graphics
   */
   draw(graphics) {
-    console.log('drawing rectangle');
+    this.clear();
     graphics.lineStyle(2, 0xFFFFFF, 1);
     graphics.strokeRectShape(this.rectangle);
   }
