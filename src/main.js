@@ -8,13 +8,14 @@ export default class Game extends Phaser.Game {
   constructor() {
     super(
       {
-        scene: [BackgroundScene, FogOfWarScene, MainScene, Sandbox]
-      },
-      {
-        arcade: true,
-        matter: false,
-        p2: false,
-        ninja: false
+        scene: [BackgroundScene, FogOfWarScene, MainScene, Sandbox],
+        physics: {
+          default: 'arcade',
+          arcade: {
+            gravity: { y: 300 },
+            debug: true
+          }
+        }
       }
     );
   }
