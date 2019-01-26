@@ -53,10 +53,6 @@ export default class MainScene extends BaseScene {
     for (let i = 0; i < this.objects.length; i++) {
       this.objects[i].addToScene();
     }
-  }
-
-  onPlayerDied(player, scene) {
-    scene.scene.restart();
     this.trap.addToScene();
   }
 
