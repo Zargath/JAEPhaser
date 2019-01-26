@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import BaseState from './BaseState';
 import Square from '../ui/primitives/Square';
-import Tile from '../world/Tile';
 import JAEText from '../ui/JAEText';
 // import GameKeyboard from '../Inputs/GameKeyboard';
 
