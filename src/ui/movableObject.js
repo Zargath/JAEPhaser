@@ -1,23 +1,27 @@
 import Phaser from 'phaser';
 
 export default class MovableObject extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, texture, mover){
-    super(scene, x, y, texture);
+  constructor(config) {
+    super(
+      config.scene,
+      config.x + (config.scene.map.tileWidth / 2),
+      config.y + (config.scene.map.tileHeight / 2),
+      config.texture
+    );
 
     // player settings
     this.gravity = 500;
     this.drag = 0.96; // 1 == less drag, change this value is low increments.
 
-    this.scene = scene;
-    this.mover = mover;
+    this.scene = config.scene;
+    this.mover = config.player;
 
-    this.startLocX = x;
-    this.startLocY = y;
-
-    this.scene.physics.add.collider(this.mover, this);
+    this.startLocX = super.x;
+    this.startLocY = super.y;
   }
 
-  addToScene(){
+  addToScene() {
+    this.scene.physics.add.collider(this.mover, this);
     this.scene.physics.add.existing(this);
     this.scene.add.existing(this);
 
@@ -28,7 +32,7 @@ export default class MovableObject extends Phaser.Physics.Arcade.Sprite {
     this.setCollideWorldBounds(true);
   }
 
-  reset(){
+  reset() {
     this.reset(this.startLocX, this.startLocY);
   }
 }

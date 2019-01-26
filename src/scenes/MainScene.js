@@ -4,6 +4,7 @@ import Player from '../ui/Player';
 import { demoMap } from '../maps';
 import MovableObject from '../ui/movableObject';
 import Mediator from '../mediator';
+import TiledMapHelper from '../Helpers/TiledMapHelper';
 
 export default class MainScene extends BaseScene {
   constructor() {
@@ -28,20 +29,30 @@ export default class MainScene extends BaseScene {
     this.player = new Player(this, 96 + 16, 64 + 16);
     this.physics.add.collider(this.player, worldLayer);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
+    this.map = map;
 
-    this.ball = new MovableObject(this, 160 + 16, 64 + 16, 'ball', this.player);
-    this.physics.add.collider(this.ball, worldLayer);
-    
+    this.objects = TiledMapHelper.createFromObjects(this, 'Objects', 'Ball', MovableObject, {
+      scene: this,
+      texture: 'ball',
+      player: this.player,
+    });
+
+    for (let i = 0; i < this.objects.length; i++) {
+      this.physics.add.collider(this.objects[i], worldLayer);
+    }
+
     this.physics.world.bounds.width = worldLayer.width;
     this.physics.world.bounds.height = worldLayer.height;
 
-    Mediator.instance.eventEmitter.on('onPlayerDied', (player) => this.onPlayerDied(player, this));
+    Mediator.instance.eventEmitter.on('onPlayerDied', player => this.onPlayerDied(player, this));
 
     this.player.addToScene();
-    this.ball.addToScene();
+    for (let i = 0; i < this.objects.length; i++) {
+      this.objects[i].addToScene();
+    }
   }
 
-  onPlayerDied(player, scene){
+  onPlayerDied(player, scene) {
     scene.scene.restart();
   }
 

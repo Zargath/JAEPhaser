@@ -26,7 +26,7 @@
          "y":0
         }, 
         {
-         "draworder":"topdown",
+         "draworder":"index",
          "id":2,
          "name":"Objects",
          "objects":[
@@ -55,7 +55,7 @@
                 {
                  "height":32,
                  "id":5,
-                 "name":"Ball_2",
+                 "name":"Ball",
                  "rotation":0,
                  "type":"Ball",
                  "visible":true,
