@@ -1,6 +1,5 @@
 import BaseScene from './BaseScene';
 import Player from '../ui/Player';
-import { map } from '../maps';
 
 export default class MainScene extends BaseScene {
   constructor() {
@@ -19,9 +18,11 @@ export default class MainScene extends BaseScene {
 
     const map = this.make.tilemap({ key: 'map', tileWidth: 16, tileHeight: 16 });
     const tileset = map.addTilesetImage('test', 'snow-tiles');
-    map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
+    const worldLayer = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
+    worldLayer.setCollisionByProperty({ collides: true });
 
     this.player = new Player(this, 100, 100);
+    this.physics.add.collider(this.player, worldLayer);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
   }
 
