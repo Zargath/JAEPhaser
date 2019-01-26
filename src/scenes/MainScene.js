@@ -1,5 +1,6 @@
 import BaseScene from './BaseScene';
 import Player from '../ui/Player';
+import JAEText from '../ui/JAEText';
 import { testMap } from '../maps';
 
 export default class MainScene extends BaseScene {
@@ -21,6 +22,8 @@ export default class MainScene extends BaseScene {
     const tileset = map.addTilesetImage('test', 'snow-tiles');
     const worldLayer = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
     worldLayer.setCollisionByProperty({ collides: true });
+
+    const text = new JAEText(20, 20, 'hello world', { fontSize: '24px', fontFamily: 'Arial', color: '#fff' }, this);
 
     this.player = new Player(this, 100, 100);
     this.physics.add.collider(this.player, worldLayer);
