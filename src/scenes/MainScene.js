@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import BaseScene from './BaseScene';
 import Player from '../ui/Player';
-import { demoMap } from '../maps';
+import { demoMapBig } from '../maps';
 import MovableObject from '../ui/movableObject';
 import Mediator from '../mediator';
 import TiledMapHelper from '../Helpers/TiledMapHelper';
@@ -13,7 +13,7 @@ export default class MainScene extends BaseScene {
   }
 
   preload() {
-    this.load.tilemapTiledJSON('map', demoMap);
+    this.load.tilemapTiledJSON('map', demoMapBig);
     this.load.image('snow-tiles', 'assets/snow_tileset.jpg');
     this.load.image('basic-tiles', 'assets/basic.png');
     this.load.image('player', 'assets/player.png');
