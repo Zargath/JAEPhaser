@@ -8,4 +8,8 @@ export default class JAEText extends Phaser.GameObjects.Text {
     super(scene, x, y, text, textStyle);
     scene.add.text(this.x, this.y, this.text, this.textStyle);
   }
+
+  update() {
+
+  }
 }

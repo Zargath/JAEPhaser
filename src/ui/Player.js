@@ -51,21 +51,21 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  respawn(){
+  respawn() {
     this.isDead = false;
     this.x = this.startLocX;
     this.y = this.startLocY;
   }
 
-  die(){
+  die() {
     this.isDead = true;
   }
 
-  addToScene(){
+  addToScene() {
     this.scene.physics.add.existing(this);
 
     this.setGravityY(this.gravity);
-    this.setBounce(0.2);
+    // this.setBounce(0.2);
     this.setCollideWorldBounds(true);
 
     this.body.onWorldBounds = true;
@@ -76,7 +76,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   onWorldBounds(body) {
     // this is world here
-    let player = body.gameObject;
+    const player = body.gameObject;
     if (body.blocked.down && !player.isDead) {
       player.die();
       player.respawn();
