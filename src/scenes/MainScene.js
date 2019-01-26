@@ -13,6 +13,22 @@ export default class MainScene extends BaseScene {
   }
 
   preload() {
+    var progress = this.add.graphics();
+
+    this.load.on('progress', function (value) {
+
+        progress.clear();
+        progress.fillStyle(0xffffff, 1);
+        progress.fillRect(0, 270, 800 * value, 60);
+
+    });
+
+    this.load.on('complete', function () {
+
+        progress.destroy();
+
+    });
+
     this.load.tilemapTiledJSON('map', demoMapBig);
     this.load.image('snow-tiles', 'assets/snow_tileset.jpg');
     this.load.image('basic-tiles', 'assets/basic.png');
@@ -29,6 +45,8 @@ export default class MainScene extends BaseScene {
 
     this.player = new Player(this, 96 + 16, 64 + 16);
     this.physics.add.collider(this.player, worldLayer);
+    //this.cameras.main.setZoom(1.5);
+    //this.cameras.main.setBounds(0, 0, 800, 600);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
     this.map = map;
 
