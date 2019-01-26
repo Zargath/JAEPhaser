@@ -1,8 +1,8 @@
-import BaseState from './BaseState';
+import BaseScene from './BaseScene';
 import Player from '../ui/Player';
 // import GameKeyboard from '../Inputs/GameKeyboard';
 
-export default class Sandbox extends BaseState {
+export default class Sandbox extends BaseScene {
   constructor() {
     super({ key: 'Sandbox', active: true });
   }

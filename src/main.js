@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
-import Sandbox from './states/Sandbox';
-import MainScene from './states/MainScene';
-import BackgroundScene from './states/BackgroundScene';
-import FogOfWarScene from './states/FogOfWarScene';
+import Sandbox from './scenes/Sandbox';
+import MainScene from './scenes/MainScene';
+import BackgroundScene from './scenes/BackgroundScene';
+import FogOfWarScene from './scenes/FogOfWarScene';
 
 export default class Game extends Phaser.Game {
   constructor() {

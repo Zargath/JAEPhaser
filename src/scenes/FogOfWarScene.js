@@ -1,7 +1,7 @@
-import BaseState from './BaseState';
+import BaseScene from './BaseScene';
 // import GameKeyboard from '../Inputs/GameKeyboard';
 
-export default class FogOfWarScene extends BaseState {
+export default class FogOfWarScene extends BaseScene {
   constructor() {
     super({ key: 'FogOfWarScene', active: true });
   }

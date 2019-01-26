@@ -1,7 +1,7 @@
-import BaseState from './BaseState';
+import BaseScene from './BaseScene';
 // import GameKeyboard from '../Inputs/GameKeyboard';
 
-export default class BackgroundScene extends BaseState {
+export default class BackgroundScene extends BaseScene {
   constructor() {
     super({ key: 'BackgroundScene', active: true });
   }

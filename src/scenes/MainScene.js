@@ -1,8 +1,8 @@
-import BaseState from './BaseState';
+import BaseScene from './BaseScene';
 import Map from '../utils/Map';
 // import GameKeyboard from '../Inputs/GameKeyboard';
 
-export default class MainScene extends BaseState {
+export default class MainScene extends BaseScene {
   constructor() {
     super({ key: 'MainScene', active: true });
   }
