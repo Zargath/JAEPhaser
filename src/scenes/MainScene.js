@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import BaseScene from './BaseScene';
 import Player from '../ui/Player';
-import { demoMapBig } from '../maps';
+import { demoMapJoel } from '../maps';
 import MovableObject from '../ui/movableObject';
 import Mediator from '../mediator';
 import TiledMapHelper from '../Helpers/TiledMapHelper';
@@ -33,7 +33,7 @@ export default class MainScene extends BaseScene {
       progress.destroy();
     });
 
-    this.load.tilemapTiledJSON('map', demoMapBig);
+    this.load.tilemapTiledJSON('map', demoMapJoel);
     this.load.image('snow-tiles', 'assets/snow_tileset.jpg');
     this.load.image('basic-tiles', 'assets/basic.png');
     this.load.image('player', 'assets/player.png');
@@ -80,7 +80,6 @@ export default class MainScene extends BaseScene {
     this.physics.world.bounds.height = worldLayer.height;
 
     Mediator.instance.eventEmitter.on('onPlayerDied', player => this.onPlayerDied(player, this));
-    Mediator.instance.eventEmitter.on('onPlayerMoveRight', player => this.onPlayerMoveRight(player, this));
 
     this.player.addToScene();
     for (let i = 0; i < this.objects.length; i++) {
@@ -104,15 +103,12 @@ export default class MainScene extends BaseScene {
     scene.cameras.main.fadeOut(500);
   }
 
-  onPlayerMoveRight(player, scene) {
-    const camera = scene.cameras.main;
-
-    if (camera.scrollX - camera._bounds.x >= 96) {
-      scene.cameras.main.setBounds(scene.cameras.main.scrollX, 0, this.map.widthInPixels - scene.cameras.main.scrollX, this.game.canvas.height, false);
-    }
-  }
-
   update() {
     this.player.update();
+
+    const camera = this.cameras.main;
+    if (camera.scrollX - camera._bounds.x >= 96) {
+      this.cameras.main.setBounds(this.cameras.main.scrollX, 0, this.map.widthInPixels - this.cameras.main.scrollX, this.game.canvas.height, false);
+    }
   }
 }
