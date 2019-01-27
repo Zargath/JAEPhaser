@@ -19,7 +19,7 @@ export default class Trap extends Phaser.Physics.Arcade.Sprite {
   }
 
   reset() {
-    console.log('reset');
+
   }
 
   killPrey(prey) {

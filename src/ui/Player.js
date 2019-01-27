@@ -32,9 +32,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.cursors = this.scene.input.keyboard.createCursorKeys();
   }
 
+  setLastSafeLocX(value) {
+    this.lastSafeLocX = value;
+  }
+
   update() {
-    this.updateWalk();
-    this.updateJump();
+    if (!this.isDead) {
+      this.updateWalk();
+      this.updateJump();
+    }
   }
 
   updateWalk() {
@@ -74,12 +80,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   reset() {
-    console.log('reset');
     this.respawn();
   }
 
   respawn() {
     this.isDead = false;
+    console.log(`player respawn x:${this.lastSafeLocX}`);
     this.enableBody(true, this.lastSafeLocX, this.lastSafeLocY, true, true);
   }
 
