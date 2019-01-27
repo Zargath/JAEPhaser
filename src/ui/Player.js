@@ -44,7 +44,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   updateWalk() {
-    if (this.cursors.left.isDown) {
+    if (this.cursors.left.isDown && this.scene.cameras.main.scrollX < this.x - 16) {
       this.setVelocityX(-this.walkSpeed);
     } else if (this.cursors.right.isDown) {
       this.setVelocityX(this.walkSpeed);
