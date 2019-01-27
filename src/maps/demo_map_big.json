@@ -272,6 +272,87 @@
                  "width":32,
                  "x":512,
                  "y":460
+                }, 
+                {
+                 "height":32,
+                 "id":19,
+                 "name":"Ball",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"MovableObject"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"ball"
+                        }],
+                 "rotation":0,
+                 "type":"Ball",
+                 "visible":true,
+                 "width":32,
+                 "x":1024,
+                 "y":334
+                }, 
+                {
+                 "height":32,
+                 "id":20,
+                 "name":"Ball",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"MovableObject"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"ball"
+                        }],
+                 "rotation":0,
+                 "type":"Ball",
+                 "visible":true,
+                 "width":32,
+                 "x":1023,
+                 "y":206
+                }, 
+                {
+                 "height":32,
+                 "id":21,
+                 "name":"Ball",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"MovableObject"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"ball"
+                        }],
+                 "rotation":0,
+                 "type":"Ball",
+                 "visible":true,
+                 "width":32,
+                 "x":1024,
+                 "y":254
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -280,7 +361,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":19,
+ "nextobjectid":22,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
