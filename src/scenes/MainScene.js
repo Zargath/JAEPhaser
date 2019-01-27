@@ -47,7 +47,6 @@ export default class MainScene extends BaseScene {
     const backgroundLayer = this.map.createStaticLayer('Background', tileset, 0, 0);
     const worldLayer = this.map.createStaticLayer('Walkable', tileset, 0, 0);
     worldLayer.setCollisionByProperty({ collides: true });
-    this.map = map;
 
     this.playerObjects = TiledMapHelper.createFromObjects(this, 'Objects', 'Player', Player, {
       scene: this,
@@ -58,7 +57,7 @@ export default class MainScene extends BaseScene {
     this.physics.add.collider(this.player, worldLayer);
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.game.canvas.height, false);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-    
+
     this.gameObjectManager.add('player', this.player);
 
     this.objects = TiledMapHelper.createFromObjects(this, 'Objects', 'Ball', MovableObject, {
@@ -108,7 +107,7 @@ export default class MainScene extends BaseScene {
   onPlayerMoveRight(player, scene) {
     const camera = scene.cameras.main;
 
-    if(camera.scrollX - camera._bounds.x >= 96) {
+    if (camera.scrollX - camera._bounds.x >= 96) {
       scene.cameras.main.setBounds(scene.cameras.main.scrollX, 0, this.map.widthInPixels - scene.cameras.main.scrollX, this.game.canvas.height, false);
     }
   }
