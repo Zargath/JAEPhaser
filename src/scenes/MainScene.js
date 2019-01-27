@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import BaseScene from './BaseScene';
 import Player from '../ui/Player';
-import { demoMapJoel } from '../maps';
+import { demoMapBig } from '../maps';
 import MovableObject from '../ui/movableObject';
 import Mediator from '../mediator';
 import TiledMapHelper from '../Helpers/TiledMapHelper';
@@ -33,7 +33,7 @@ export default class MainScene extends BaseScene {
       progress.destroy();
     });
 
-    this.load.tilemapTiledJSON('map', demoMapJoel);
+    this.load.tilemapTiledJSON('map', demoMapBig);
     this.load.image('snow-tiles', 'assets/snow_tileset.jpg');
     this.load.image('basic-tiles', 'assets/basic.png');
     this.load.image('player', 'assets/player.png');
@@ -55,7 +55,6 @@ export default class MainScene extends BaseScene {
 
     this.player = this.playerObjects[0];
     this.physics.add.collider(this.player, worldLayer);
-    this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.game.canvas.height, false);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
 
     this.gameObjectManager.add('player', this.player);
@@ -82,6 +81,7 @@ export default class MainScene extends BaseScene {
     Mediator.instance.eventEmitter.on('onPlayerDied', player => this.onPlayerDied(player, this));
 
     this.player.addToScene();
+
     for (let i = 0; i < this.objects.length; i++) {
       const object = this.objects[i];
       this.gameObjectManager.add(`ball-${i}`, object);
@@ -105,10 +105,5 @@ export default class MainScene extends BaseScene {
 
   update() {
     this.player.update();
-
-    const camera = this.cameras.main;
-    if (camera.scrollX - camera._bounds.x >= 96) {
-      this.cameras.main.setBounds(this.cameras.main.scrollX, 0, this.map.widthInPixels - this.cameras.main.scrollX, this.game.canvas.height, false);
-    }
   }
 }
