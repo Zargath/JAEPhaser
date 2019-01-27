@@ -18,9 +18,6 @@ export default class MovableObject extends Phaser.Physics.Arcade.Sprite {
 
     this.startLocX = this.x;
     this.startLocY = this.y;
-
-    console.log(this.startLocX);
-    console.log(this.startLocY);
   }
 
   addToScene() {
@@ -36,7 +33,6 @@ export default class MovableObject extends Phaser.Physics.Arcade.Sprite {
   }
 
   reset() {
-    console.log('reset');
     this.x = this.startLocX;
     this.y = this.startLocY;
   }

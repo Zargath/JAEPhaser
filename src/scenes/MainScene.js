@@ -42,10 +42,10 @@ export default class MainScene extends BaseScene {
   }
 
   create() {
-    const map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
-    const tileset = map.addTilesetImage('basic', 'basic-tiles');
-    const backgroundLayer = map.createStaticLayer('Background', tileset, 0, 0);
-    const worldLayer = map.createStaticLayer('Walkable', tileset, 0, 0);
+    this.map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
+    const tileset = this.map.addTilesetImage('basic', 'basic-tiles');
+    const backgroundLayer = this.map.createStaticLayer('Background', tileset, 0, 0);
+    const worldLayer = this.map.createStaticLayer('Walkable', tileset, 0, 0);
     worldLayer.setCollisionByProperty({ collides: true });
     this.map = map;
 
@@ -56,8 +56,9 @@ export default class MainScene extends BaseScene {
 
     this.player = this.playerObjects[0];
     this.physics.add.collider(this.player, worldLayer);
+    this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.game.canvas.height, false);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-
+    
     this.gameObjectManager.add('player', this.player);
 
     this.objects = TiledMapHelper.createFromObjects(this, 'Objects', 'Ball', MovableObject, {
@@ -80,6 +81,7 @@ export default class MainScene extends BaseScene {
     this.physics.world.bounds.height = worldLayer.height;
 
     Mediator.instance.eventEmitter.on('onPlayerDied', player => this.onPlayerDied(player, this));
+    Mediator.instance.eventEmitter.on('onPlayerMoveRight', player => this.onPlayerMoveRight(player, this));
 
     this.player.addToScene();
     for (let i = 0; i < this.objects.length; i++) {
@@ -101,6 +103,14 @@ export default class MainScene extends BaseScene {
     }, scene);
 
     scene.cameras.main.fadeOut(500);
+  }
+
+  onPlayerMoveRight(player, scene) {
+    const camera = scene.cameras.main;
+
+    if(camera.scrollX - camera._bounds.x >= 96) {
+      scene.cameras.main.setBounds(scene.cameras.main.scrollX, 0, this.map.widthInPixels - scene.cameras.main.scrollX, this.game.canvas.height, false);
+    }
   }
 
   update() {

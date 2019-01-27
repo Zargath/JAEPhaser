@@ -117,6 +117,17 @@
                  "width":32,
                  "x":426,
                  "y":403
+                }, 
+                {
+                 "height":32,
+                 "id":18,
+                 "name":"KillSwitch",
+                 "rotation":0,
+                 "type":"KillSwitch",
+                 "visible":true,
+                 "width":32,
+                 "x":512,
+                 "y":460
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -125,7 +136,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":18,
+ "nextobjectid":19,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
