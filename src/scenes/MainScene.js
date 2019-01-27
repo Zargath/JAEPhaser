@@ -37,8 +37,14 @@ export default class MainScene extends BaseScene {
     this.load.image('snow-tiles', 'assets/snow_tileset.jpg');
     this.load.image('basic-tiles', 'assets/basic.png');
     this.load.image('player', 'assets/player.png');
-    this.load.image('ball', 'assets/ball.png');
-    this.load.image('poison', 'assets/poison-512.png');
+    this.load.image('ball', 'assets/box.png');
+    this.load.image('poison', 'assets/poison.png');
+
+    this.load.spritesheet(
+      'player_spritsheet',
+      'assets/player_real.png',
+      { frameWidth: 32, frameHeight: 32 }
+    );
 
     this.classDictionary = { Player, MovableObject, Trap, };
     this.gameObjectManager = new GameObjectManager();
@@ -46,6 +52,8 @@ export default class MainScene extends BaseScene {
 
   create() {
     this.createMap();
+    // this.createAnimations();
+
     const player = this.gameObjectManager.get('player');
     Mediator.instance.eventEmitter.on('onPlayerDied', p => this.onPlayerDied(player, this));
   }
@@ -53,7 +61,7 @@ export default class MainScene extends BaseScene {
   onPlayerDied(player, scene) {
     scene.cameras.main.once('camerafadeoutcomplete', (camera) => {
       this.gameObjectManager.resetObjects();
-      scene.cameras.main.fadeIn(100);
+      scene.cameras.main.fadeIn();
     }, scene);
 
     scene.cameras.main.fadeOut(500);
@@ -61,6 +69,36 @@ export default class MainScene extends BaseScene {
 
   update() {
     this.gameObjectManager.update();
+  }
+
+  createAnimations() {
+    this.anims.create({
+      key: 'walk_up',
+      frames: this.anims.generateFrameNumbers('player_spritsheet', { start: 0, end: 2 }),
+      frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: 'walk_right',
+      frames: this.anims.generateFrameNumbers('player_spritsheet', { start: 3, end: 5 }),
+      frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: 'walk_down',
+      frames: this.anims.generateFrameNumbers('player_spritsheet', { start: 6, end: 8 }),
+      frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: 'walk_left',
+      frames: this.anims.generateFrameNumbers('player_spritsheet', { start: 9, end: 11 }),
+      frameRate: 6,
+      repeat: -1
+    });
   }
 
   createMap() {

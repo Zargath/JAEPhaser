@@ -37,6 +37,8 @@ export default class TiledMapHelper {
 
         config.x = obj.x;
         config.y = obj.y;
+        config.width = obj.width;
+        config.height = obj.height;
 
         let sprite;
         if (customClass !== undefined) {

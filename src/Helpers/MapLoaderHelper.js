@@ -10,20 +10,10 @@ export default class MapLoaderHelper {
   }
 
   loadMap() {
-    const map = this.scene.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
+    const map = this.scene.make.tilemap({ key: this.key, tileWidth: this.tileWidth, tileHeight: this.tileHeight });
 
+    // REWRITE HERE
     this.tileset = map.addTilesetImage('basic', 'basic-tiles');
-
-    // const worldLayer = this.map.createStaticLayer('Walkable', tileset, 0, 0);
-    // worldLayer.setCollisionByProperty({ collides: true });
-
-    /*
-    this.objects = TiledMapHelper.createFromObjects(this, 'Objects', 'Ball', MovableObject, {
-      scene: this,
-      texture: 'ball',
-      player: this.player,
-    });
-    */
 
     const tileLayers = map.layers;
     const objectLayers = map.objects;
@@ -100,6 +90,7 @@ export default class MapLoaderHelper {
           }
         );
 
+        const groupSimilarObjects = [];
         for (let i = 0; i < objects.length; i++) {
           const object = objects[i];
           if (object.collidesWithTerrain) {
@@ -107,8 +98,15 @@ export default class MapLoaderHelper {
               this.scene.physics.add.collider(object, tileMapLayers[k]);
             }
           }
+          groupSimilarObjects.push(object);
           object.addToScene();
           this.scene.gameObjectManager.add(`${object.name}-${i}`, object);
+        }
+
+        for (let i = 0; i < groupSimilarObjects.length; i++) {
+          for (let k = 0; k < groupSimilarObjects.length; k++) {
+            this.scene.physics.add.collider(groupSimilarObjects[i], groupSimilarObjects[k]);
+          }
         }
       }
     });

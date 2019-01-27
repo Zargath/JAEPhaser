@@ -10,6 +10,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       config.texture,
     );
 
+    //  this.width = config.width;
+    //  this.height = config.height;
+
     this.scene = config.scene;
 
     // player settings
@@ -45,10 +48,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   updateWalk() {
     if (this.cursors.left.isDown) {
+      // this.anims.play('walk_left', true);
       this.setVelocityX(-this.walkSpeed);
     } else if (this.cursors.right.isDown) {
+    //  this.anims.play('walk_right', true);
       this.setVelocityX(this.walkSpeed);
     } else {
+    //  this.anims.load('walk_down');
       this.setVelocityX(0);
     }
     if (this.body.blocked.down && !this.isJumping
