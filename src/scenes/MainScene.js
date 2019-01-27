@@ -16,11 +16,17 @@ export default class MainScene extends BaseScene {
 
   preload() {
     const progress = this.add.graphics();
+    const width = 400;
+    const height = 20;
+    const x = (this.game.canvas.width / 2) - width / 2;
+    const y = (this.game.canvas.height / 2) - height / 2;
 
     this.load.on('progress', (value) => {
       progress.clear();
+      progress.lineStyle(3, 0xFFFFFF, 1.0);
       progress.fillStyle(0xffffff, 1);
-      progress.fillRect(0, 270, 800 * value, 60);
+      progress.fillRect(x, y, width * value, height);
+      progress.strokeRect(x, y, width, height);
     });
 
     this.load.on('complete', () => {
