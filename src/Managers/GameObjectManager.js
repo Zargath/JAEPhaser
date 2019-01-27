@@ -18,6 +18,12 @@ export default class GameObjectManager {
     }
   }
 
+  get(key) {
+    if (key in this.gameObjects) {
+      return this.gameObjects[key];
+    }
+  }
+
   resetObjects() {
     Object.keys(this.gameObjects).forEach((key) => {
       this.gameObjects[key].reset();

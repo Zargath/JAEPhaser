@@ -4,8 +4,8 @@ export default class MovableObject extends Phaser.Physics.Arcade.Sprite {
   constructor(config) {
     super(
       config.scene,
-      config.x + (config.scene.map.tileWidth / 2),
-      config.y + (config.scene.map.tileHeight / 2),
+      config.x + (config.map.tileWidth / 2),
+      config.y + (config.map.tileHeight / 2),
       config.texture
     );
 
@@ -18,6 +18,12 @@ export default class MovableObject extends Phaser.Physics.Arcade.Sprite {
 
     this.startLocX = this.x;
     this.startLocY = this.y;
+
+    this.collidesWithTerrain = config.collidesWithTerrain;
+  }
+
+  update() {
+
   }
 
   addToScene() {

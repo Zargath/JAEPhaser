@@ -34,6 +34,22 @@
                  "height":32,
                  "id":1,
                  "name":"Ball",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"MovableObject"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"ball"
+                        }],
                  "rotation":0,
                  "type":"Ball",
                  "visible":true,
@@ -45,6 +61,22 @@
                  "height":32,
                  "id":7,
                  "name":"Ball",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"MovableObject"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"ball"
+                        }],
                  "rotation":0,
                  "type":"Ball",
                  "visible":true,
@@ -56,6 +88,22 @@
                  "height":32,
                  "id":10,
                  "name":"Ball",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"MovableObject"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"ball"
+                        }],
                  "rotation":0,
                  "type":"Ball",
                  "visible":true,
@@ -67,6 +115,22 @@
                  "height":32,
                  "id":11,
                  "name":"Ball",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"MovableObject"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"ball"
+                        }],
                  "rotation":0,
                  "type":"Ball",
                  "visible":true,
@@ -78,6 +142,22 @@
                  "height":32,
                  "id":12,
                  "name":"KillSwitch",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"Trap"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"poison"
+                        }],
                  "rotation":0,
                  "type":"KillSwitch",
                  "visible":true,
@@ -89,6 +169,22 @@
                  "height":32,
                  "id":15,
                  "name":"KillSwitch",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"Trap"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"poison"
+                        }],
                  "rotation":0,
                  "type":"KillSwitch",
                  "visible":true,
@@ -100,6 +196,22 @@
                  "height":32,
                  "id":16,
                  "name":"KillSwitch",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"Trap"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"poison"
+                        }],
                  "rotation":0,
                  "type":"KillSwitch",
                  "visible":true,
@@ -111,6 +223,22 @@
                  "height":32,
                  "id":17,
                  "name":"Player",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"Player"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"player"
+                        }],
                  "rotation":0,
                  "type":"Player",
                  "visible":true,
@@ -122,6 +250,22 @@
                  "height":32,
                  "id":18,
                  "name":"KillSwitch",
+                 "properties":[
+                        {
+                         "name":"PhaserCollideWithTerrain",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"PhaserConstructor",
+                         "type":"string",
+                         "value":"Trap"
+                        }, 
+                        {
+                         "name":"Texture",
+                         "type":"string",
+                         "value":"poison"
+                        }],
                  "rotation":0,
                  "type":"KillSwitch",
                  "visible":true,

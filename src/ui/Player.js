@@ -5,8 +5,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(config) {
     super(
       config.scene,
-      config.x + (config.scene.map.tileWidth / 2),
-      config.y + (config.scene.map.tileHeight / 2),
+      config.x + (config.map.tileWidth / 2),
+      config.y + (config.map.tileHeight / 2),
       config.texture,
     );
 
@@ -85,7 +85,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   respawn() {
     this.isDead = false;
-    console.log(`player respawn x:${this.lastSafeLocX}`);
     this.enableBody(true, this.lastSafeLocX, this.lastSafeLocY, true, true);
   }
 

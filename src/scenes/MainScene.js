@@ -5,13 +5,13 @@ import { demoMapBig } from '../maps';
 import MovableObject from '../ui/movableObject';
 import Mediator from '../mediator';
 import TiledMapHelper from '../Helpers/TiledMapHelper';
+import MapLoaderHelper from '../Helpers/MapLoaderHelper';
 import GameObjectManager from '../Managers/GameObjectManager';
 import Trap from '../ui/trap';
 
 export default class MainScene extends BaseScene {
   constructor() {
     super({ key: 'MainScene', active: true });
-    this.gameObjectManager = new GameObjectManager();
   }
 
   preload() {
@@ -39,59 +39,15 @@ export default class MainScene extends BaseScene {
     this.load.image('player', 'assets/player.png');
     this.load.image('ball', 'assets/ball.png');
     this.load.image('poison', 'assets/poison-512.png');
+
+    this.classDictionary = { Player, MovableObject, Trap, };
+    this.gameObjectManager = new GameObjectManager();
   }
 
   create() {
-    this.map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
-    const tileset = this.map.addTilesetImage('basic', 'basic-tiles');
-    const backgroundLayer = this.map.createStaticLayer('Background', tileset, 0, 0);
-    const worldLayer = this.map.createStaticLayer('Walkable', tileset, 0, 0);
-    worldLayer.setCollisionByProperty({ collides: true });
-
-    this.playerObjects = TiledMapHelper.createFromObjects(this, 'Objects', 'Player', Player, {
-      scene: this,
-      texture: 'player',
-    });
-
-    this.player = this.playerObjects[0];
-    this.physics.add.collider(this.player, worldLayer);
-    this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-
-    this.gameObjectManager.add('player', this.player);
-
-    this.objects = TiledMapHelper.createFromObjects(this, 'Objects', 'Ball', MovableObject, {
-      scene: this,
-      texture: 'ball',
-      player: this.player,
-    });
-
-    this.trapObjects = TiledMapHelper.createFromObjects(this, 'Objects', 'KillSwitch', Trap, {
-      scene: this,
-      texture: 'poison',
-      player: this.player,
-    });
-
-    for (let i = 0; i < this.objects.length; i++) {
-      this.physics.add.collider(this.objects[i], worldLayer);
-    }
-
-    this.physics.world.bounds.width = worldLayer.width;
-    this.physics.world.bounds.height = worldLayer.height;
-
-    Mediator.instance.eventEmitter.on('onPlayerDied', player => this.onPlayerDied(player, this));
-
-    this.player.addToScene();
-
-    for (let i = 0; i < this.objects.length; i++) {
-      const object = this.objects[i];
-      this.gameObjectManager.add(`ball-${i}`, object);
-      object.addToScene();
-    }
-    for (let i = 0; i < this.trapObjects.length; i++) {
-      const object = this.trapObjects[i];
-      this.gameObjectManager.add(`trap-${i}`, object);
-      object.addToScene();
-    }
+    this.createMap();
+    const player = this.gameObjectManager.get('player');
+    Mediator.instance.eventEmitter.on('onPlayerDied', p => this.onPlayerDied(player, this));
   }
 
   onPlayerDied(player, scene) {
@@ -104,6 +60,18 @@ export default class MainScene extends BaseScene {
   }
 
   update() {
-    this.player.update();
+    this.gameObjectManager.update();
+  }
+
+  createMap() {
+    const mapLoaderHelper = new MapLoaderHelper({
+      scene: this,
+      key: 'map',
+      tileWidth: 32,
+      tileHeight: 32,
+      tileset: 'basic',
+    });
+
+    mapLoaderHelper.loadMap();
   }
 }

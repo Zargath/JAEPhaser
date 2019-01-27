@@ -2,17 +2,18 @@ export default class TiledMapHelper {
   /**
     * @desc creates objects from a given TiledMap provided to the scene.
     * @param Phaser.Scene $scene - The scene to create the objects to
+    * @param Phaser.TiledMap $map - The map to get the objectLayer from
     * @param string $name - The layer name from Tiled
     * @param string $id - The gid from Tiled
     * @param Object $customClass - The custom class to create the objects for.
     * @param Object $spriteConfiguration - The specific configurations for the customClass.
     * @return Phaser.Sprite[] - An array with the created sprites.
   */
-  static createFromObjects(scene, name, id, customClass, spriteConfiguration) {
+  static createFromObjects(scene, map, name, id, customClass, spriteConfiguration) {
     let spriteConfig = spriteConfiguration;
     if (spriteConfig === undefined) spriteConfig = {};
 
-    const objectLayer = scene.map.getObjectLayer(name);
+    const objectLayer = map.getObjectLayer(name);
     if (!objectLayer) {
       console.warn(`Cannot create from object. Invalid objectgroup name given: ${name}`);
       return null;
@@ -39,7 +40,7 @@ export default class TiledMapHelper {
 
         let sprite;
         if (customClass !== undefined) {
-          sprite = new customClass(config);
+          sprite = new scene.classDictionary[customClass](config);
         } else {
           sprite = scene.make.sprite(config);
         }
