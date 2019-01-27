@@ -35,6 +35,7 @@ export default class MainScene extends BaseScene {
 
     this.load.tilemapTiledJSON('map', demoMapJoel);
     this.load.image('snow-tiles', 'assets/snow_tileset.jpg');
+    this.load.image('alpha-tiles', 'assets/TextureSheet.png');
     this.load.image('basic-tiles', 'assets/basic.png');
     this.load.image('player', 'assets/player.png');
     this.load.image('ball', 'assets/ball.png');
@@ -44,8 +45,10 @@ export default class MainScene extends BaseScene {
   create() {
     this.map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
     const tileset = this.map.addTilesetImage('basic', 'basic-tiles');
+    const tilesetAlpha = this.map.addTilesetImage('TerrainAlpha', 'alpha-tiles');
     const backgroundLayer = this.map.createStaticLayer('Background', tileset, 0, 0);
-    const worldLayer = this.map.createStaticLayer('Walkable', tileset, 0, 0);
+    const worldLayer = this.map.createStaticLayer('AlphaTerrain', tilesetAlpha, 0, 0);
+    const backgroundWorldLayer = this.map.createStaticLayer('Walkable', tileset, 0, 0);
     worldLayer.setCollisionByProperty({ collides: true });
 
     this.playerObjects = TiledMapHelper.createFromObjects(this, 'Objects', 'Player', Player, {
