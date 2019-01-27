@@ -47,8 +47,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     if (this.cursors.left.isDown) {
       this.setVelocityX(-this.walkSpeed);
     } else if (this.cursors.right.isDown) {
-      this.setVelocityX(this.walkSpeed);
-      Mediator.instance.eventEmitter.emit('onPlayerMoveRight', this);
+      this.setVelocityX(this.walkSpeed);ß
     } else {
       this.setVelocityX(0);
     }

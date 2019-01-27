@@ -58,7 +58,7 @@ export default class MainScene extends BaseScene {
     this.physics.add.collider(this.player, worldLayer);
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.game.canvas.height, false);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-    
+
     this.gameObjectManager.add('player', this.player);
 
     this.objects = TiledMapHelper.createFromObjects(this, 'Objects', 'Ball', MovableObject, {
@@ -81,7 +81,6 @@ export default class MainScene extends BaseScene {
     this.physics.world.bounds.height = worldLayer.height;
 
     Mediator.instance.eventEmitter.on('onPlayerDied', player => this.onPlayerDied(player, this));
-    Mediator.instance.eventEmitter.on('onPlayerMoveRight', player => this.onPlayerMoveRight(player, this));
 
     this.player.addToScene();
     for (let i = 0; i < this.objects.length; i++) {
@@ -106,14 +105,15 @@ export default class MainScene extends BaseScene {
   }
 
   onPlayerMoveRight(player, scene) {
-    const camera = scene.cameras.main;
-
-    if(camera.scrollX - camera._bounds.x >= 96) {
-      scene.cameras.main.setBounds(scene.cameras.main.scrollX, 0, this.map.widthInPixels - scene.cameras.main.scrollX, this.game.canvas.height, false);
-    }
+    
   }
 
   update() {
     this.player.update();
+
+    const camera = this.cameras.main;
+    if(camera.scrollX - camera._bounds.x >= 96) {
+      this.cameras.main.setBounds(this.cameras.main.scrollX, 0, this.map.widthInPixels - this.cameras.main.scrollX, this.game.canvas.height, false);
+    }
   }
 }
