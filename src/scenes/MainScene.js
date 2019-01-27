@@ -7,6 +7,7 @@ import Mediator from '../mediator';
 import TiledMapHelper from '../Helpers/TiledMapHelper';
 import GameObjectManager from '../Managers/GameObjectManager';
 import Trap from '../ui/trap';
+import JAEText from '../ui/JAEText';
 
 export default class MainScene extends BaseScene {
   constructor() {
@@ -50,6 +51,8 @@ export default class MainScene extends BaseScene {
     const worldLayer = this.map.createStaticLayer('AlphaTerrain', tilesetAlpha, 0, 0);
     const backgroundWorldLayer = this.map.createStaticLayer('Walkable', tileset, 0, 0);
     worldLayer.setCollisionByProperty({ collides: true });
+
+    this.createGameTitle();
 
     this.playerObjects = TiledMapHelper.createFromObjects(this, 'Objects', 'Player', Player, {
       scene: this,
@@ -95,6 +98,11 @@ export default class MainScene extends BaseScene {
       this.gameObjectManager.add(`trap-${i}`, object);
       object.addToScene();
     }
+  }
+
+  createGameTitle(){
+    let titleText = this.add.text(630, 200, 'Run {from} Home', { fontSize: '52px', fontFamily: 'Arial', color: '#fff' });
+    titleText.setOrigin(0.5);
   }
 
   onPlayerDied(player, scene) {
