@@ -5,7 +5,7 @@ import HudScene from './scenes/HudScene';
 export default class Game extends Phaser.Game {
   constructor() {
     super({
-      scene: [MainScene, HudScene],
+      scene: [MainScene],
       physics: {
         default: 'arcade',
         arcade: {
