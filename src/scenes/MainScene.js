@@ -1,13 +1,15 @@
 import Phaser from 'phaser';
 import BaseScene from './BaseScene';
 import Player from '../ui/Player';
-import { demoMapJoel } from '../maps';
+import { demoMapJoel, demoMapBig } from '../maps';
 import MovableObject from '../ui/movableObject';
 import Mediator from '../mediator';
 import TiledMapHelper from '../Helpers/TiledMapHelper';
 import GameObjectManager from '../Managers/GameObjectManager';
 import Trap from '../ui/trap';
 import JAEText from '../ui/JAEText';
+import GameEndTrigger from '../ui/gameEndTrigger';
+import GameEndScene from './GameEndScene';
 
 export default class MainScene extends BaseScene {
   constructor() {
@@ -16,6 +18,7 @@ export default class MainScene extends BaseScene {
   }
 
   preload() {
+    console.log('preload: MainScene');
     const progress = this.add.graphics();
     const width = 400;
     const height = 20;
@@ -34,25 +37,29 @@ export default class MainScene extends BaseScene {
       progress.destroy();
     });
 
-    this.load.tilemapTiledJSON('map', demoMapJoel);
+    //this.load.tilemapTiledJSON('map', demoMapJoel);
+    this.load.tilemapTiledJSON('map', demoMapBig);
     this.load.image('snow-tiles', 'assets/snow_tileset.jpg');
     this.load.image('alpha-tiles', 'assets/TextureSheet.png');
     this.load.image('basic-tiles', 'assets/basic.png');
     this.load.image('player', 'assets/player.png');
     this.load.image('ball', 'assets/ball.png');
     this.load.image('poison', 'assets/poison-512.png');
+    this.load.image('trigger-box', 'assets/triggerBox.png');
   }
 
   create() {
+    console.log('create: MainScene');
+    this.isGameEnded = false;
+
     this.map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
     const tileset = this.map.addTilesetImage('basic', 'basic-tiles');
     const tilesetAlpha = this.map.addTilesetImage('TerrainAlpha', 'alpha-tiles');
     const backgroundLayer = this.map.createStaticLayer('Background', tileset, 0, 0);
-    const worldLayer = this.map.createStaticLayer('AlphaTerrain', tilesetAlpha, 0, 0);
-    const backgroundWorldLayer = this.map.createStaticLayer('Walkable', tileset, 0, 0);
+    //const worldLayer = this.map.createStaticLayer('AlphaTerrain', tilesetAlpha, 0, 0);
+    //const backgroundWorldLayer = this.map.createStaticLayer('Walkable', tileset, 0, 0);
+    const worldLayer = this.map.createStaticLayer('Walkable', tileset, 0, 0);
     worldLayer.setCollisionByProperty({ collides: true });
-
-    this.createGameTitle();
 
     this.playerObjects = TiledMapHelper.createFromObjects(this, 'Objects', 'Player', Player, {
       scene: this,
@@ -78,6 +85,11 @@ export default class MainScene extends BaseScene {
       player: this.player,
     });
 
+    this.gameEndTriggerObjects = TiledMapHelper.createFromObjects(this, 'Objects', 'GameEndTrigger', GameEndTrigger, {
+      scene: this,
+      player: this.player,
+    });
+
     for (let i = 0; i < this.objects.length; i++) {
       this.physics.add.collider(this.objects[i], worldLayer);
     }
@@ -86,6 +98,7 @@ export default class MainScene extends BaseScene {
     this.physics.world.bounds.height = worldLayer.height;
 
     Mediator.instance.eventEmitter.on('onPlayerDied', player => this.onPlayerDied(player, this));
+    Mediator.instance.eventEmitter.on('onPlayerEndGameTriggered', player => this.onPlayerEndGameTriggered(player, this));
 
     this.player.addToScene();
     for (let i = 0; i < this.objects.length; i++) {
@@ -98,11 +111,11 @@ export default class MainScene extends BaseScene {
       this.gameObjectManager.add(`trap-${i}`, object);
       object.addToScene();
     }
-  }
-
-  createGameTitle(){
-    let titleText = this.add.text(630, 200, 'Run {from} Home', { fontSize: '52px', fontFamily: 'Arial', color: '#fff' });
-    titleText.setOrigin(0.5);
+    for (let i = 0; i < this.gameEndTriggerObjects.length; i++) {
+      const object = this.gameEndTriggerObjects[i];
+      this.gameObjectManager.add(`game-end-trigger-${i}`, object);
+      object.addToScene();
+    }
   }
 
   onPlayerDied(player, scene) {
@@ -114,12 +127,25 @@ export default class MainScene extends BaseScene {
     scene.cameras.main.fadeOut(500);
   }
 
-  update() {
-    this.player.update();
+  onPlayerEndGameTriggered(player, scene) {
+    console.log(`game end ${this.isGameEndeding}`);
+    if (!this.isGameEndeding) {
+      this.isGameEndeding = true;
+      
+      scene.cameras.main.once('camerafadeoutcomplete', (camera) => {
+        //scene.scene.start('GameEndScene');
+      }, scene);
 
-    const camera = this.cameras.main;
-    if (camera.scrollX - camera._bounds.x >= 96) {
-      this.cameras.main.setBounds(this.cameras.main.scrollX, 0, this.map.widthInPixels - this.cameras.main.scrollX, this.game.canvas.height, false);
+      scene.cameras.main.fadeOut(500);
     }
+  }
+
+  update() {
+      this.player.update();
+
+      const camera = this.cameras.main;
+      if (camera.scrollX - camera._bounds.x >= 96) {
+        this.cameras.main.setBounds(this.cameras.main.scrollX, 0, this.map.widthInPixels - this.cameras.main.scrollX, this.game.canvas.height, false);
+      }
   }
 }

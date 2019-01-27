@@ -30,6 +30,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.lastSafeLocY = this.y;
 
     this.cursors = this.scene.input.keyboard.createCursorKeys();
+
+    Mediator.instance.eventEmitter.on('onPlayerEndGameTriggered', (player) => {
+      player.setVelocityX(0);
+    });
   }
 
   setLastSafeLocX(value) {
