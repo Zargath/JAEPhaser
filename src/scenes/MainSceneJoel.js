@@ -108,5 +108,10 @@ export default class MainSceneJoel extends BaseScene {
 
   update() {
     this.player.update();
+
+    const camera = this.cameras.main;
+    if (camera.scrollX - camera._bounds.x >= 96) {
+      this.cameras.main.setBounds(this.cameras.main.scrollX, 60, this.map.widthInPixels - this.cameras.main.scrollX, this.game.canvas.height, false);
+    }
   }
 }
