@@ -16,6 +16,7 @@ export default class Trap extends Phaser.Physics.Arcade.Sprite {
   addToScene() {
     this.scene.physics.add.existing(this);
     this.scene.add.existing(this);
+    this.setImmovable(true);
   }
 
   reset() {

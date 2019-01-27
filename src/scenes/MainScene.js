@@ -94,6 +94,12 @@ export default class MainScene extends BaseScene {
       this.physics.add.collider(this.objects[i], worldLayer);
     }
 
+    for (let i = 0; i < this.objects.length; i++) {
+      for (let t = 0; t < this.trapObjects.length; t++) {
+        this.physics.add.collider(this.objects[i], this.trapObjects[t]);
+      }
+    }
+
     this.physics.world.bounds.width = worldLayer.width;
     this.physics.world.bounds.height = worldLayer.height;
 
