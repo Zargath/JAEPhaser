@@ -18,6 +18,12 @@ export default class GameObjectManager {
     }
   }
 
+  resetObjects() {
+    Object.keys(this.gameObjects).forEach((key) => {
+      this.gameObjects[key].reset();
+    });
+  }
+
   update() {
     Object.keys(this.gameObjects).forEach((key) => {
       this.gameObjects[key].update();

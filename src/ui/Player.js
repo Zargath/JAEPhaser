@@ -2,9 +2,15 @@ import Phaser from 'phaser';
 import Mediator from '../mediator';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y) {
-    super(scene, x, y, 'player');
-    this.scene = scene;
+  constructor(config) {
+    super(
+      config.scene,
+      config.x + (config.scene.map.tileWidth / 2),
+      config.y + (config.scene.map.tileHeight / 2),
+      config.texture,
+    );
+
+    this.scene = config.scene;
 
     // player settings
     this.gravity = 500;
@@ -13,13 +19,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.doubleJumpSpeed = 180;
 
     // player defaults
+    this.isJumping = false;
     this.canJump = true;
     this.canDoubleJump = false;
     this.isDead = false;
-    this.startLocX = x;
-    this.startLocY = y;
+    this.startLocX = this.x;
+    this.startLocY = this.y;
 
-    this.cursors = scene.input.keyboard.createCursorKeys();
+    this.lastSafeLocX = this.x;
+    this.lastSafeLocY = this.y;
+
+    this.cursors = this.scene.input.keyboard.createCursorKeys();
   }
 
   update() {
@@ -35,27 +45,42 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     } else {
       this.setVelocityX(0);
     }
+    if (this.body.blocked.down && !this.isJumping
+      && this.y + 50 < this.scene.physics.world.bounds.height) {
+      this.lastSafeLocX = this.x;
+      this.lastSafeLocY = this.y;
+    }
   }
 
   updateJump() {
     this.canJump = this.body.blocked.down || this.body.touching.down;
+
+    if (this.canJump && this.isJumping) {
+      this.isJumping = false;
+    }
 
     if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
       if (this.canJump) {
         this.setVelocityY(-this.jumpSpeed);
         this.canJump = false;
         this.canDoubleJump = true;
+        this.isJumping = true;
       } else if (this.canDoubleJump) {
         this.canDoubleJump = false;
         this.setVelocityY(-this.doubleJumpSpeed);
+        this.isJumping = true;
       }
     }
   }
 
+  reset() {
+    console.log('reset');
+    this.respawn();
+  }
+
   respawn() {
     this.isDead = false;
-    this.x = this.startLocX;
-    this.y = this.startLocY;
+    this.enableBody(true, this.lastSafeLocX, this.lastSafeLocY, true, true);
   }
 
   die() {
@@ -68,7 +93,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene.physics.add.existing(this);
 
     this.setGravityY(this.gravity);
-    // this.setBounce(0.2);
     this.setCollideWorldBounds(true);
 
     this.body.onWorldBounds = true;

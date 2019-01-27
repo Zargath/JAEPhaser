@@ -39,7 +39,7 @@
                  "visible":true,
                  "width":32,
                  "x":765,
-                 "y":247
+                 "y":230
                 }, 
                 {
                  "height":32,
@@ -82,8 +82,8 @@
                  "type":"KillSwitch",
                  "visible":true,
                  "width":32,
-                 "x":200,
-                 "y":79
+                 "x":195,
+                 "y":119
                 }, 
                 {
                  "height":32,
@@ -104,8 +104,19 @@
                  "type":"KillSwitch",
                  "visible":true,
                  "width":32,
-                 "x":404,
+                 "x":405,
                  "y":199
+                }, 
+                {
+                 "height":32,
+                 "id":17,
+                 "name":"Player",
+                 "rotation":0,
+                 "type":"Player",
+                 "visible":true,
+                 "width":32,
+                 "x":426,
+                 "y":403
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -114,7 +125,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":17,
+ "nextobjectid":18,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",

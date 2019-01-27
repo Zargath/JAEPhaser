@@ -5,11 +5,13 @@ import { demoMapBig } from '../maps';
 import MovableObject from '../ui/movableObject';
 import Mediator from '../mediator';
 import TiledMapHelper from '../Helpers/TiledMapHelper';
+import GameObjectManager from '../Managers/GameObjectManager';
 import Trap from '../ui/trap';
 
 export default class MainScene extends BaseScene {
   constructor() {
     super({ key: 'MainScene', active: true });
+    this.gameObjectManager = new GameObjectManager();
   }
 
   preload() {
@@ -39,11 +41,18 @@ export default class MainScene extends BaseScene {
     const backgroundLayer = map.createStaticLayer('Background', tileset, 0, 0);
     const worldLayer = map.createStaticLayer('Walkable', tileset, 0, 0);
     worldLayer.setCollisionByProperty({ collides: true });
+    this.map = map;
 
-    this.player = new Player(this, 96 + 16, 64 + 16);
+    this.playerObjects = TiledMapHelper.createFromObjects(this, 'Objects', 'Player', Player, {
+      scene: this,
+      texture: 'player',
+    });
+
+    this.player = this.playerObjects[0];
     this.physics.add.collider(this.player, worldLayer);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-    this.map = map;
+
+    this.gameObjectManager.add('player', this.player);
 
     this.objects = TiledMapHelper.createFromObjects(this, 'Objects', 'Ball', MovableObject, {
       scene: this,
@@ -68,16 +77,21 @@ export default class MainScene extends BaseScene {
 
     this.player.addToScene();
     for (let i = 0; i < this.objects.length; i++) {
-      this.objects[i].addToScene();
+      const object = this.objects[i];
+      this.gameObjectManager.add(`ball-${i}`, object);
+      object.addToScene();
     }
     for (let i = 0; i < this.trapObjects.length; i++) {
-      this.trapObjects[i].addToScene();
+      const object = this.trapObjects[i];
+      this.gameObjectManager.add(`trap-${i}`, object);
+      object.addToScene();
     }
   }
 
   onPlayerDied(player, scene) {
     scene.cameras.main.once('camerafadeoutcomplete', (camera) => {
-      this.scene.restart();
+      this.gameObjectManager.resetObjects();
+      scene.cameras.main.fadeIn(100);
     }, scene);
 
     scene.cameras.main.fadeOut(500);
