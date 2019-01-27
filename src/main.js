@@ -1,11 +1,12 @@
 import Phaser from 'phaser';
-import MainScene from './scenes/MainScene';
+import MainSceneJoel from './scenes/MainSceneJoel';
+// import MainScene from './scenes/MainScene';
 import HudScene from './scenes/HudScene';
 
 export default class Game extends Phaser.Game {
   constructor() {
     super({
-      scene: [MainScene, HudScene],
+      scene: [MainSceneJoel, HudScene],
       physics: {
         default: 'arcade',
         arcade: {
