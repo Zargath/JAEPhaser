@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-// import MainSceneJoel from './scenes/MainSceneJoel';
 import MainScene from './scenes/MainScene';
 import HudScene from './scenes/HudScene';
 
