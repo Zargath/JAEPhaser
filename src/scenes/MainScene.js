@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import BaseScene from './BaseScene';
 import Player from '../ui/Player';
-import { demoMapBig } from '../maps';
+import { demoMapJoel } from '../maps';
 import MovableObject from '../ui/movableObject';
 import Mediator from '../mediator';
 import TiledMapHelper from '../Helpers/TiledMapHelper';
@@ -33,7 +33,7 @@ export default class MainScene extends BaseScene {
       progress.destroy();
     });
 
-    this.load.tilemapTiledJSON('map', demoMapBig);
+    this.load.tilemapTiledJSON('map', demoMapJoel);
     this.load.image('snow-tiles', 'assets/snow_tileset.jpg');
     this.load.image('basic-tiles', 'assets/basic.png');
     this.load.image('player', 'assets/player.png');
@@ -47,7 +47,6 @@ export default class MainScene extends BaseScene {
     const backgroundLayer = this.map.createStaticLayer('Background', tileset, 0, 0);
     const worldLayer = this.map.createStaticLayer('Walkable', tileset, 0, 0);
     worldLayer.setCollisionByProperty({ collides: true });
-    this.map = map;
 
     this.playerObjects = TiledMapHelper.createFromObjects(this, 'Objects', 'Player', Player, {
       scene: this,
