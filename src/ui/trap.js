@@ -4,8 +4,8 @@ export default class Trap extends Phaser.Physics.Arcade.Sprite {
   constructor(config) {
     super(
       config.scene,
-      config.x,
-      config.y,
+      config.x + (config.scene.map.tileWidth / 2),
+      config.y + (config.scene.map.tileWidth / 2),
       config.texture
     );
 
@@ -16,6 +16,10 @@ export default class Trap extends Phaser.Physics.Arcade.Sprite {
   addToScene() {
     this.scene.physics.add.existing(this);
     this.scene.add.existing(this);
+  }
+
+  reset() {
+    console.log('reset');
   }
 
   killPrey(prey) {
